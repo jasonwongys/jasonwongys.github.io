@@ -1,12 +1,4 @@
 
-/*
-Win condition:
-Loop until all the correct words are guessed
-    - restart game
-    - Display score*/
-
-//Store word length and score as global variables
-
 var scoreForPlayer1 = 0;
 var totalScoreForPlayer2 = 0;
 var player1SelectedWord;
@@ -14,87 +6,89 @@ var player2GuessedWord;
 var storeCorrectLetters = [];
 var guessChance = 3;
 
-/*Player1 enters a word.
-    - prompt user for word and *word length
-            if selected word is less than
 
-    - split the selected word in array
-      store the player1SelectedWord  ( to match win condition)
-        -
-        return player1SelectedWord */
-promptAndSplit();
+    window.onload = function() {
+   console.log("testing");
+};
+//Prompt player 1 and return to global variable for selectedWord
 
+function promptAndSplit(event){
 
-function promptAndSplit() //Prompt player 1 and return to global variable for selectedWord
-{
-    var selectedWord = prompt("Enter a word"); //change to innerHTML or textContent
-    var wordLength = selectedWord.length;
-    console.log(selectedWord);
+    document.querySelector("#enterWordBtn").addEventListener("click", function() {
+        player1SelectedWord = document.getElementById('getWord').value.split("");
+        //alert("The player entered: " + player1SelectedWord.length + "words");
+        console.log(player1SelectedWord);
+        createLetters(player1SelectedWord);
+        promptPlayer2ForWord (player1SelectedWord);
+    });
+};
 
-    confirm("The word length is : " + wordLength);
-    confirm("The player entered: " + selectedWord.length+ " letters");
-    player1SelectedWord = selectedWord.split("");
-    console.log(player1SelectedWord);
-    alert("The player entered the word: " + player1SelectedWord);
-    promptPlayerForWord (player1SelectedWord);
-                // if (wordLength !== selectedWord.length || selectedWord.length > wordLength)
-                // {
-                //     prompt("Please match the word length of: " + wordLength);
-                //     var selectedWord = prompt("Enter a word");
-                // }
-}
-/*Player2 guesses the word
-    - prompt the user to enter his guessed word
-    - store the guessed word in array
-        -push the entered.word in storeCorrectLetters array */
+var wordsArea = document.getElementById('wordArea');
+var body = document.getElementsByTagName('body');
 
-        /*Compare the guessed word with selected word
-    - use for loop to match the words.
-    - if any letters match,add to score +1*/
+function createLetters(player1SelectedWord, event) {
 
-function promptPlayerForWord (player1SelectedWord)
-{
-    var player2Word = prompt("Player 2: Guess the word");
-    player2GuessedWord = player2Word.split("");
-    console.log(player2GuessedWord);
-
-    checkGuessedWord(player1SelectedWord, player2GuessedWord);
-}
-
-function checkGuessedWord(player1SelectedWord, player2GuessedWord)
-{
-    for(var i = 0; i < player1SelectedWord.length;i++)
-    {
-        for(var j = 0; j < player2GuessedWord.length; j++)
-        {
-            console.log("The stored correct letter are: " + storeCorrectLetters);
-            if(player1SelectedWord[i] === player2GuessedWord[j])
-            {
-                storeCorrectLetters.push(player2GuessedWord[j]);
-                totalScoreForPlayer2 += 1;
-            }
-        }
+    for(var i = 0; i < player1SelectedWord.length; i++){
+        var letterElement = document.createElement("span");
+        letterElement.textContent = "X" ///player1SelectedWord[i];
+        letterElement.id = "letters";
+        wordsArea.appendChild(letterElement); // put th into wordArea
     }
-        summarizeRoundScore(storeCorrectLetters,player1SelectedWord);
+    //body.appendChild(wordsArea);
+}
+function promptPlayer2ForWord (player1SelectedWord){
+    confirm("Player 2: Guess the word and enter in textbox");
+
+    document.querySelector("#guessWordBtn").addEventListener("click", function() {
+        player2GuessedWord = document.getElementById('guessWord').value.split("");
+        console.log(player2GuessedWord);
+        checkGuessedWord(player1SelectedWord, player2GuessedWord);
+        guessWord.value = "";
+});
+    if (player2GuessedWord > player1SelectedWord)
+    {
+        confirm("please keep to " + player1SelectedWord.length);
+    }
+    console.log(player2GuessedWord);
 }
 
+function checkGuessedWord(player1SelectedWord, player2GuessedWord){
 
-function summarizeRoundScore(storeCorrectLetters,player1SelectedWord )
-{
-    alert("You scored " + totalScoreForPlayer2 + " points !");
+    var letterReveal = document.querySelectorAll('#letters');
 
-    confirm("The correct letters are: " + storeCorrectLetters + "\n" + "The selected word is : " + player1SelectedWord);
+      if (player1SelectedWord.length == player2GuessedWord.length) {
+        for (var i = 0; i < player2GuessedWord.length; i++) {
+            if (player1SelectedWord[i] == player2GuessedWord[i]) {
+                storeCorrectLetters.push(player1SelectedWord[i]);
+                letterReveal[i].textContent = player2GuessedWord[i];
+            }
+            else if(storeCorrectLetters.length < player1SelectedWord)
+            {
+                confirm("You have " + storeCorrectLetters.length + " correct");
+            }
+        } if(player1SelectedWord === storeCorrectLetters){
+            confirm("You guessed the correct word");
+        }
+    }else
+    {
+        confirm("The entered text doesn't match player 1. Guess again");
+    }
+}
+//summarizeRoundScore(player1SelectedWord);
+function summarizeRoundScore(player1SelectedWord){
+
+    confirm("The correct letters are: " + "\n" + "The selected word is : " + player1SelectedWord);
 
     var playAgain = prompt("Play again ?");
 
-    if(playAgain === 'y')
-    {
-        storeCorrectLetters.length = 0; // set the stored array to empty
-        console.log(storeCorrectLetters);
-        promptAndSplit();
+    if(playAgain === 'y'){
+        storeCorrectLetters.length = 0;
 
-    }else if(playAgain ==='n')
-    {
+        location.reload(true);
+
+    }else if(playAgain ==='n'){
         window.close();
     }
 }
+
+promptAndSplit();
