@@ -35,6 +35,7 @@ function promptPlayerForLetter (){
         checkGuessedWord(player2GuessedWord);
         var inputBox = document.getElementById('guessWord');
         inputBox.value = "";
+        
 });
 
 }
