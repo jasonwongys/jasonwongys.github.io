@@ -1,6 +1,6 @@
 body {
-    background-color: #F4CC70;
-    display: inline-block;
+
+    background-image: url("bkground.jpg");
 }
 
 h1 {
@@ -12,19 +12,18 @@ h1 {
 }
 header {
     font-size: 80px;
-    height: 150px;
+    height: 100px;
     margin: 0 auto;
     border-radius: 20px;
-    font-family: 'Gamja Flower', cursive;
+    font-family: 'Comfortaa', cursive;
     border-style: 3px solid black;
-    color: #DE7A22;
+    color: white;
 
 }
 
 .container {
-   display: inline-block;
     position: relative;
-    background-color: #DE7A22;
+    background-color: #EFCA08;
     height: 500px;
     width: 850px;
     border-radius: 20px;
@@ -40,7 +39,7 @@ header {
     color: white;
     border-radius: 20px;
     text-align: center;
-    font-size: 20px;
+    font-size: 30px;
     padding: 15px;
 
 }
@@ -63,7 +62,7 @@ button {
 }
 
 .game-area {
-        text-orientation: center;
+    text-orientation: center;
     font-size: 30px;
 }
 
@@ -79,13 +78,34 @@ button {
 #wordArea {
     color: black;
     font-size: 30px;
+    height: 70px;
     background-color: white;
     text-align: center;
+    border-radius: 20px;
+    letter-spacing: 2px;
 
 }
 
+#guessed-words {
+    margin: 0 auto;
+    text-align: center;
+}
 
 
 p {
     margin: 0 10px 0 10px;
+}
+
+footer {
+    font-family: "Comfortaa";
+    color: white;
+
+}
+
+a:link {
+  text-decoration: none;
+}
+
+#letters {
+    font-size: 50px;
 }

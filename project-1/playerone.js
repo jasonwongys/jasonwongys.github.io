@@ -19,8 +19,9 @@ function createBoard() {
 
     for(var i = 0; i < randomWord.length; i++){
         var letterElement = document.createElement("span");
-        letterElement.textContent = "X" ///player1SelectedWord[i];
+        letterElement.textContent = "_" ///player1SelectedWord[i];
         letterElement.id = "letters";
+        //letterElement.style.letterspacing = "2px";
         wordsArea.appendChild(letterElement);
     }
 }
